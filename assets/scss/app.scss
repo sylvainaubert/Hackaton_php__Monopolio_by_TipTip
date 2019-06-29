@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Adventure';
+  src: url("../fonts/Adventure.otf");
+}
+@font-face {
+  font-family: 'Comix';
+  src: url("../fonts/Comix Loud.ttf");
+}
+@font-face {
+  font-family: 'Outrun';
+  src: url("../fonts/Outrun future Bold.otf");
+}
+@font-face {
+  font-family: 'Simplicity';
+  src: url("../fonts/SIMPLICITY.ttf");
+}
+
+/*@import "~bootswatch/dist/slate/_variables.scss";*/
+@import "~bootstrap/scss/bootstrap.scss";
+
+@import '~jquery-slotmachine/dist/jquery.slotmachine.css';
+/*@import "~bootswatch/dist/slate/_bootswatch.scss";*/
+@import '_vars.scss';
+@import 'home';
+@import 'gameboard';
+@import 'cell';
+@import 'customCar';
+@import 'modalevent';
+@import 'cashmoney';
+@import 'cashback';
+
+body {
+    background-color: $background;
+    .game {
+        background-color: $background-game;
+    }
+}
+

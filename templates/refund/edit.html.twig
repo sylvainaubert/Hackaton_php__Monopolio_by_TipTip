@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une prise en charge{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="{{ path('refund_index') }}"><img src="{{ asset('build/logo.png') }}"
+                                                                       alt="logo-tip-tip" width="150" height="75"></a>
+    </nav>
+    <h1 class="text-center">Modifier une prise en charge</h1>
+
+    {{ include('refund/_form.html.twig', {'button_label': 'Modifier'}) }}
+<br>
+    <div class="text-center">
+        <a type="button" class="btn btn-secondary" href="{{ path('refund_index') }}">Retour à la liste</a>
+    </div>
+    <br>
+    {{ include('refund/_delete_form.html.twig') }}
+{% endblock %}

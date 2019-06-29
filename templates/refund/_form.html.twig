@@ -1,0 +1,50 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+<div class="container-fluid">
+
+
+    <div class="row pt-4 justify-content-center">
+        <div class="col-lg-6">
+            {{ form_label(form.benefit, 'Soin') }}
+            {{ form_widget(form.benefit) }}
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-center">
+        <div class="col-lg-6">
+            {{ form_label(form.regulatedPrice, 'prix sécurité sociale') }}
+            {{ form_widget(form.regulatedPrice) }}
+
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-center">
+        <div class="col-lg-6">
+            {{ form_label(form.refundRate, 'Taux de remboursement sécurité sociale') }}
+            {{ form_widget(form.refundRate) }}
+
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-center">
+        <div class="col-lg-6">
+            {{ form_label(form.RefundRateTipTip, 'Taux de remboursement TipTip') }}
+            {{ form_widget(form.RefundRateTipTip) }}
+
+        </div>
+    </div>
+    <div class="text-center">
+    <div class="row pt-4 justify-content-center">
+        <div class="col-lg-6">
+            {{ form_label(form.secuSupported, 'Pris en charge par la sécurité sociale') }}
+            {{ form_widget(form.secuSupported) }}
+
+        </div>
+    </div>
+    </div>
+    <br>
+    <div class="text-center">
+    <a type="button" class="btn btn-success">{{ button_label|default('Enregistrer') }}</a>
+    </div>
+
+</div>

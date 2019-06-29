@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tip tip</title>
+</head>
+<body>
+
+<h1>{{player.lastname }} {{ player.firstname }} souhaite souscrire à une offre tip tip !</h1>
+<p>
+    Informations fournies par le prospect :<br>
+    <br>
+    Nom : {{ player.lastname }}<br>
+    Prénom : {{ player.firstname }}<br>
+    E-mail : {{ player.email }}<br>
+    Genre : {{ player.gender }}<br>
+    Lunettes : {{ player.haveGlasses ? 'oui' : 'non'}}<br>
+    Soins dentaires : {{ player.haveDentalCare ? 'oui' : 'non' }}<br>
+    Visite régulière chez le médecin : {{ player.doctorVisitFrequency ? 'oui' : 'non' }}<br>
+</p>
+
+</body>
+</html>

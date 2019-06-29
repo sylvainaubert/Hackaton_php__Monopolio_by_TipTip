@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dice{% endblock %}
+
+{% block body %}
+    <div class="container dice-dice">
+        {% set soincout = 0 %}
+        {% if   app.session.get('soin') %}
+            {% for soin in app.session.get('soin') %}
+                {% set soincout = soincout + soin.coutDuSoin %}
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="col-5 text-center pb-5" id="card-counter">
+                <div>
+                    <div class="title-counter" style="font-size:50px">
+                        CashBack : Y A PAS !!
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="title-counter" style="font-size:50px">
+                    Coût réel des soins
+                </div>
+                <div id="odometerreel" class="odometer" data-charge="{% if  app.session.get('totalGame') %}{{ app.session.get('totalGame').totalCoutReel | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+                <div class="title-counter" style="font-size:50px">
+                    Dernier soin!
+                </div>
+                <div id="odometerlast" class="odometer"
+                     data-charge="{% if  app.session.get('totalTour') %}{{ app.session.get('totalTour').totalResteAChargeSansTipTip | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+                <div class="title-counter" style="font-size:50px">
+                    Frais annuel!
+                </div>
+                <div id="odometer" class="odometer"
+                data-charge="{% if  app.session.get('totalGame') %}{{ app.session.get('totalGame').totalResteAChargeSansTipTip | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+            </div>
+            <div class="col-2 justify-content-center">
+                <div class="dice dice-placing">
+                    <img src="{{ asset('build/dice/Dice-') }}{{ dice }}.png"
+                         id="dice_img"
+                         class="d-block w-100"
+                         alt="dice"/>
+                </div>
+
+                <form action="{{ path('dice') }}" method="post" class="form-example" id="diceForm">
+                    <div class="form-example">
+                        <label for="dice"></label>
+                        <input type="hidden" name="dice-number" id="dice" required>
+                        <input type="hidden" name="openPopup" id="popup" value="true" required>
+                    </div>
+                    <div class="w-100 ">
+                        <a href="#" id="throw" role="button" class="btn btn-dice my-1" onmousedown="bleep.play()">Lances !</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-5 text-center" id="card-counter">
+                <div>
+                    <div class="title-counter" style="font-size:50px">
+                        CashBack : <span class="title-cash">{{ app.session.get('player').cashBack }}</span> €
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (app.session.get('player').cashBackInit /100) * app.session.get('player').cashBack }}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="title-counter" style="font-size:50px">
+                    Coût réel des soins
+                </div>
+                <div id="odometertiptipreel" class="odometer" data-charge="{% if  app.session.get('totalGame') %}{{ app.session.get('totalGame').totalCoutReel | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+                <div class="title-counter" style="font-size:50px">
+                    Dernier soin!
+                </div>
+                <div id="odometertiptiplast" class="odometer"
+                     data-charge="{% if  app.session.get('totalTour') %}{{ app.session.get('totalTour').totalResteACharge | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+                <div class="title-counter" style="font-size:50px">
+                    Frais annuel!
+                </div>
+                <div id="odometertiptip" class="odometer"
+                     data-charge="{% if  app.session.get('totalGame') %}{{ app.session.get('totalGame').totalResteACharge | round(0, 'floor')}} {% else %} 0 {% endif %}"></div>
+                <span class="title-counter">€</span>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dice') }}
+    {{ encore_entry_script_tags('cashback') }}
+    <script>
+        setTimeout(function () {
+            odometer.innerHTML = $('#odometer').attr('data-charge');
+        }, 2500);
+        setTimeout(function () {
+            odometertiptip.innerHTML = $('#odometertiptip').attr('data-charge');
+        }, 2500);
+        setTimeout(function () {
+            odometerlast.innerHTML = $('#odometerlast').attr('data-charge');
+        }, 1500);
+        setTimeout(function () {
+            odometertiptiplast.innerHTML = $('#odometertiptiplast').attr('data-charge');
+        }, 1500);
+        setTimeout(function () {
+            odometertiptipreel.innerHTML = $('#odometertiptipreel').attr('data-charge');
+        }, 500);
+        setTimeout(function () {
+            odometerreel.innerHTML = $('#odometerreel').attr('data-charge');
+        }, 500);
+
+        var bleep = new Audio();
+        bleep.src= "Voix-001.mp3";
+
+        function JouerSon() {
+            var sound = document.getElementById("throw");
+            sound.play();
+        }
+    </script>
+{% endblock %}

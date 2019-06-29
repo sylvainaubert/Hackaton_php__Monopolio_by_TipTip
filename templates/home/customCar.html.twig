@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jouer avec TipTip{% endblock %}
+
+{% block body %}
+
+
+
+    <section id="custom-page" class="custom-page">
+
+        <div class="container form-check">
+
+            <h1 class="text-center py-5">constitution du personnage</h1>
+
+            {# Form for custom carac #}
+
+            <form action="" method="post" id="avatareditor_form">
+                <div class="row">
+                    <div class="col-12 mx-auto card card-stat text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">crées ton avatar</h2>
+                            <div class="row">
+
+                                <div class="col-12 col-lg-3 text-center text-lg-left custom-checkbox">
+                                    <div class="form-check">
+                                        <p>
+                                            <input type="checkbox" class="form-check-input" id="glasses" name="glasses">
+                                            <label class="form-check-label" for="glasses">
+                                                <span class="ui">Lunettes</span></label>
+                                        </p>
+                                    </div>
+                                    <div class="form-check">
+                                        <p>
+                                            <input type="checkbox" class="form-check-input" id="dentalCare"
+                                                   name="dentalCare">
+                                            <label class="form-check-label" for="dentalCare">
+                                                <span class="ui">Soins dentaires</span></label>
+                                        </p>
+                                    </div>
+                                    <div class="form-check">
+                                        <p>
+                                            <input type="checkbox" class="form-check-input" id="medicalPathology"
+                                                   name="pathology">
+                                            <label class="form-check-label" for="medicalPathology">
+                                                <span class="ui">Pathologie médical</span></label>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-3 text-center text-lg-left custom-radio">
+                                    {% for age in ageChoice %}
+                                        <div class="form-check">
+                                            <p>
+                                                <input type="radio" class="form-check-input" value="{{ age.id }}"
+                                                       id="{{ age.id }}" name="age" required {% if loop.index0 == 0 %} checked{% endif %}>
+                                                <label class="form-check-label" for="{{ age.id }}">{{ age.age }}</label>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-3 custom-checkbox-2">
+                                    <p class="my-1 hospit">Hospitalisation sur les 3 dernières années :</p>
+                                    <input type="checkbox" id="check" name="hospital">
+                                    <label for="check" class="loadcheck" id="loadcheck">
+                                        <span class="entypo-cancel">&#10008;</span>
+                                        <span class="load"></span>
+                                        <span class="load"></span>
+                                        <span class="load"></span>
+                                        <span class="load"></span>
+                                        <span class="load"></span>
+                                        <span class="entypo-check">&#10004;</span>
+                                    </label>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <div class="card card-player">
+                                        <img id="picavatar"
+                                             class="card-img-top player-picture mx-auto"
+                                             src="{{ asset('build/avatar/etudiant-1.png') }}"
+                                             alt="Card image cap">
+                                        <div class="card-footer p-0">
+
+                                            <div class="row gender-radio justify-content-around">
+                                                <div class="btn-group justify-content-around" data-toggle="buttons">
+                                                    <p class="col-4 m-0 p-0">
+                                                        <label class="btn active justify-content-start" for="gender">
+                                                            <input type="radio" autocomplete="off" value="male"
+                                                                   id="gender" name="gender" required>
+                                                            <span class="fas fa-mars fa-4x animated rotateIn"></span>
+                                                        </label>
+                                                    </p>
+                                                    <p class="col-4 m-0 p-0">
+                                                        <label class="btn btn-sexe-huum justify-content-center" for="gender">
+                                                            <input type="radio" autocomplete="off"
+                                                                   value="transgender"
+                                                                   id="gender" name="gender" required>
+                                                            <span class="fas fa-transgender fa-4x animated rotateIn"></span>
+                                                        </label>
+                                                    </p>
+                                                    <p class="col-4 m-0 p-0">
+                                                        <label class="btn justify-content-end" for="gender">
+                                                            <input type="radio" autocomplete="off" value="female"
+                                                                   id="gender" name="gender" required>
+                                                            <span class="fas fa-venus fa-4x animated rotateIn"></span>
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <a class="btn btn-custom_char" href="{{ path('game') }}" role="button">Jouer</a>
+ {#                               <button type="submit" class="btn btn-custom_char">Jouer</button>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {# End form for custom carac #}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function editAvatar() {
+            var form = $('#avatareditor_form');
+            console.log(form.serialize());
+            $.post({
+                url: '/edit_avatar',
+                data: form.serialize(),
+                timeout: 3000,
+                success: function (data) {
+                    $('#picavatar').attr('src','build/avatar/' + data.picture);
+                    console.log($('#picavatar').attr('src'));
+
+                },
+                error: function () {
+                    $('#zone').html('Cette requête AJAX n\'a pas abouti');
+                }
+            });
+        }
+
+        $("#avatareditor_form").on('change', 'input', function (e) {
+            editAvatar();
+        })
+    </script>
+{% endblock %}

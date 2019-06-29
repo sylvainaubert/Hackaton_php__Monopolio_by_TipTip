@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prise en charge{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="{{ path('refund_index') }}"><img src="{{ asset('build/logo.png') }}"
+                                                                       alt="logo-tip-tip" width="150" height="75"></a>
+    </nav>
+    <h1 class="text-center">Prise en charge</h1>
+    <br>
+    <br>
+    <br>
+<div class="container-fluid">
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ refund.id }}</td>
+            </tr>
+            <tr>
+                <th>Benefit</th>
+                <td>{{ refund.benefit }}</td>
+            </tr>
+            <tr>
+                <th>RegulatedPrice</th>
+                <td>{{ refund.regulatedPrice }}</td>
+            </tr>
+            <tr>
+                <th>BasicRefund</th>
+                <td>{{ refund.basicRefund }}</td>
+            </tr>
+            <tr>
+                <th>RefundRate</th>
+                <td>{{ refund.refundRate }}</td>
+            </tr>
+            <tr>
+                <th>RefundRateTipTip</th>
+                <td>{{ refund.RefundRateTipTip }}</td>
+            </tr>
+            <tr>
+                <th>SecuSupported</th>
+                <td>{{ refund.secuSupported ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <br>
+
+    <div class="text-center">
+        <a type="button" class="btn btn-secondary" href="{{ path('refund_index') }}">Retour à la liste</a>
+    </div>
+
+    <br>
+<div class="text-center">
+    <a type="button" class="btn btn-success" href="{{ path('refund_edit', {'id': refund.id}) }}">modifier</a>
+</div>
+
+
+{% endblock %}

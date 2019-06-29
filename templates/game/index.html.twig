@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+{% block body %}
+    <script>
+        var openPopup = {% if openPopup %} true {% else %} false {% endif %};
+    </script>
+    <div id="game-page" class="container-fluid p-0 game">
+
+        <div class="row no-gutters">
+            <div class="col-xl-6">
+                <div class="p-0">
+                    <div class="card gameboard-content my-auto bg-transparent border-0 rounded">
+                        <div class="card-body mx-auto py-0">
+                            {{ render(controller('App\\Controller\\MapController::index')) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="p-0">
+                    {#                    <div class="card data-content my-auto  border-0 bg-transparent rounded">#}
+                    {#                        <div class="card-header text-primary pl-3 p-1 border-0">#}
+                    {#                            <h2>Dé</h2>#}
+                    {#                            <hr class="my-2"/>#}
+                    {#                        </div>#}
+                    {#                        <div class="card-body data-content-inside  py-0 px-1">#}
+                    {#                            <!-- Button trigger modal -->#}
+                    {#                            <button type="button" class="btn btn-primary" data-toggle="modal"#}
+                    {#                                    data-target="#exampleModal">#}
+                    {#                                Launch demo modal#}
+                    {#                            </button>#}
+
+                    {#                            <!-- Modal -->#}
+                    {#                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"#}
+                    {#                                 aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+                    {#                                <div class="modal-dialog" role="document">#}
+                    {#                                    <div class="modal-content">#}
+                    {#                                        <div class="modal-header">#}
+                    {#                                            <h5 class="modal-title" id="exampleModalLabel">Vous souhaitez souscrire à tip tip#}
+                    {#                                                ?</h5>#}
+                    {#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+                    {#                                                <span aria-hidden="true">&times;</span>#}
+                    {#                                            </button>#}
+                    {#                                        </div>#}
+                    {#                                        <div class="modal-body mx-md-5">#}
+                    {#                                            {{ form_start(form) }}#}
+                    {#                                            <div class="col-12 my-1">#}
+                    {#                                                {{ form_label(form.firstname) }}#}
+                    {#                                                {{ form_widget(form.firstname) }}#}
+                    {#                                            </div>#}
+                    {#                                            <div class="col-12 my-1">#}
+                    {#                                                {{ form_label(form.lastname) }}#}
+                    {#                                                {{ form_widget(form.lastname) }}#}
+                    {#                                            </div>#}
+                    {#                                            <div class="col-12 my-1">#}
+                    {#                                                {{ form_label(form.email) }}#}
+                    {#                                                {{ form_widget(form.email) }}#}
+                    {#                                            </div>#}
+                    {#                                        </div>#}
+                    {#                                        <div class="modal-footer">#}
+                    {#                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler#}
+                    {#                                            </button>#}
+                    {#                                            <button type="submit" class="btn btn-primary">Envoyer</button>#}
+                    {#                                        </div>#}
+                    {#                                        {{ form_end(form) }}#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+
+                    {#                            {{ render(controller('App\\Controller\\DiceController::index')) }}#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="border-0 py-0">
+                    <div class="card comment-content mx-auto bg-transparent">
+                        <div class="card-body comment-content-inside py-0">
+                            <div id="card-players" class="row mx-auto text-center">
+                                <div class="col-xl-5 justify-content-center">
+                                    <div class="card card-left">
+                                        <div class="card-title title-versus" style="font-size:50px">
+                                            tip&nbsp;&nbsp;tip
+                                        </div>
+                                        <div class="card-img-top mx-auto">
+                                            <img class="mx-auto border-red img-fluid"
+                                                 src="{{ asset('build/student_ok.png') }}"
+                                                 alt="image player 1">
+                                        </div>
+                                        <div class="card-title title-versus2">
+                                            Tu&nbsp;&nbsp;l'as&nbsp;&nbsp;pas...
+                                        </div>
+{#                                        <div class="card-body">#}
+{#                                            <p>T'as gagné :</p>#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 versus">
+                                    <img class="img-fluid img-versus" src="{{ asset('build/image_versus2.png') }}"
+                                         alt="image versus">
+                                </div>
+                                <div class="col-xl-5 justify-content-center">
+                                    <div class="card card-right">
+                                        <div class="card-title title-versus" style="font-size:50px">
+                                            tip&nbsp;&nbsp;tip
+                                        </div>
+                                        <div class="card-img-top mx-auto">
+                                            <img class="mx-auto border-red img-fluid"
+                                                 src="{{ 'build/avatar/' ~ player.picture }}"
+                                                 alt="image player 1">
+                                        </div>
+                                        <div class="card-title title-versus2">
+                                            Tu&nbsp;&nbsp;l'as !
+                                        </div>
+{#                                        <div class="card-body">#}
+{#                                            <p>T'as perdu :</p>#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="py-0">
+                    <div class="card data-content my-auto  border-0 bg-transparent rounded">
+                        <div class="card-body data-content-inside  py-0 px-1">
+
+                            {% if player.position == 42 %}
+                            <!-- Button trigger modal -->
+                            <button type="button" id="playMail" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                            </button>
+                            {% endif %}
+
+                            <input type="hidden" id="mailModal" value="{{ player.position }}">
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Vous souhaitez souscrire à
+                                                tip tip
+                                                ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body mx-md-5">
+                                            {{ form_start(form) }}
+                                            <div class="col-12 my-1">
+                                                {{ form_label(form.firstname) }}
+                                                {{ form_widget(form.firstname) }}
+                                            </div>
+                                            <div class="col-12 my-1">
+                                                {{ form_label(form.lastname) }}
+                                                {{ form_widget(form.lastname) }}
+                                            </div>
+                                            <div class="col-12 my-1">
+                                                {{ form_label(form.email) }}
+                                                {{ form_widget(form.email) }}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                                        </div>
+                                        {{ form_end(form) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                {{ render(controller('App\\Controller\\DiceController::index')) }}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+{#            <div class="py-0 px-1">#}
+{#                {{ render(controller('App\\Controller\\CashbackController::index')) }}#}
+{#            </div>#}
+        </div>
+    </div>
+    <script>
+        let position = document.getElementById("mailModal").value;
+        console.log($('#mailModal').val());
+        if (position == 42) {
+            $("#playMail").click()
+        }
+    </script>
+{% endblock %}

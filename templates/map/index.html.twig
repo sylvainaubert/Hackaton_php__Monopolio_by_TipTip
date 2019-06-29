@@ -1,0 +1,283 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% set cellPlayer = 0 %}
+    {% set celldisplay = 0 %}
+    <div class="container p-0 m-0" id="map">
+        <div class="grid">
+            {% for i in 1..map.width %}
+                <div class="row m-0">
+                    {% for j in 1..map.height %}
+                        {% set celldisplay = 0 %}
+                        {% for celltest in map.cells %}
+                            {% if celltest.coordY == j and celltest.coordX == i %}
+                                {% set celldisplay = celltest %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="col-1 box border-0 cell-content m-0 p-1 {{ celldisplay ? 'border border-dark' : '' }}">
+                            {% if  celldisplay %}
+
+                                <div class=" inner innercell hovicon small effect-1 sub-b">
+                                    <div id="eventCell">
+                                        <button type="button" class="btn" data-toggle="modal"
+                                                data-target="#modalEvent"
+                                                data-icon="{{ celldisplay.eventcategory? celldisplay.eventcategory.icon : '' }}"
+                                                data-picture="{{ celldisplay.eventcategory? celldisplay.eventcategory.picture : '' }}"
+                                                data-name="{{ celldisplay.eventcategory? celldisplay.eventcategory.name : '' }}"
+                                                data-description="{{ celldisplay.eventcategory? celldisplay.eventcategory.description : '' }}"
+
+                                                {% if celldisplay.position == player.position %}
+                                                {% set cellPlayer = celldisplay %}
+                                                id="playEvent">
+                                            <input id="openModal" type="hidden"
+                                                   value="{{ celldisplay.eventcategory ? 1 : 0 }}">
+                                            <img class="img-fluid " style="transform: scale(4);"
+                                                 src="{{ 'build/avatar/' ~ player.picture }}" alt="pion joueur smiley">
+                                            {% else %}
+                                                >
+                                                <i class="iconlarge {{ celldisplay.eventcategory? celldisplay.eventcategory.icon : '' }}"></i>
+                                            {% endif %}
+                                        </button>
+                                    </div>
+                                </div>
+
+                            {% else %}
+                                <div class=" inner">{{ celldisplay ? 'X' : '' }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {#    ------------------------------ FIRST MODAL --------------------------------#}
+
+    <div class="modal fade" id="modalEvent" tabindex="-1" role="dialog" aria-labelledby="modalEvent"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-notify modal-info border-primary border-3" role="document">
+            <!--Content-->
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <p class="heading"></p>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="modal-icon icon">
+                        <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
+                    </div>
+                    <div class="img-fluid">
+                        <img id="picevent" class="img-fluid modal-picture"
+                             src="{{ asset('build/event/nursenight.gif') }}"/>
+                    </div>
+                    <p class="heading"></p>
+                    <div class="modal-description">
+                    </div>
+
+                </div>
+
+                <!--Footer-->
+                <div class=" modal-footer justify-content-center">
+                    <button type="button" id="btnEventModal" class="btn btn-outline-light" data-toggle="modal"
+                            data-target="#modalRandom">
+                        Alleeeeeeeeez !
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect" data-dismiss="modal">Oh pas ce
+                        soir ...
+                    </button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    {#    ------------------------------ SECOND ---------------------------#}
+
+    <div class="modal modal-bcg fade" id="modalRandom" tabindex="-1" role="dialog" aria-labelledby="modalRandom"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered border-primary border-0" id="modalcash"
+             role="document">
+            <!--Content-->
+            <div class="modal-content text-center bg-transparent">
+                <!--Header-->
+                {#                <div class="modal-header d-flex justify-content-center text-white bg-transparent">#}
+                {#                    <h2 class="modal-title" id="exampleModalLabel">Car La vie est faite d'imprévus ...</h2>#}
+                {#                    <p class="heading"></p>#}
+                {#                </div>#}
+                <!--Body-->
+                <h2 class="modal-title" id="exampleModalLabel">Parce que la vie est faite d'imprévus...</h2>
+                <div class="modal-body">
+                    <div id="randomize">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="inner">
+                                        <div id="machine1" class="randomizeMachine">
+                                            <div><img src="{{ asset('build/cashmachine/slot1.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot2.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot3.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot4.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot5.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot6.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot7.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot8.png') }}" /></div>
+                                        </div>
+                                    </div>
+                                    {#                                    <div id="machine1Result" class="col-xs-4 machineResult">Index: 0</div>#}
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="inner">
+                                        <div id="machine2" class="randomizeMachine">
+                                            <div><img src="{{ asset('build/cashmachine/slot1.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot2.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot3.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot4.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot5.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot6.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot7.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot8.png') }}" /></div>
+                                        </div>
+                                    </div>
+                                    {#                                    <div id="machine2Result" class="col-xs-4 machineResult">Index: 1</div>#}
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="inner">
+                                        <div id="machine3" class="randomizeMachine">
+                                            <div><img src="{{ asset('build/cashmachine/slot1.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot2.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot3.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot4.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot5.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot6.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot7.png') }}" /></div>
+                                            <div><img src="{{ asset('build/cashmachine/slot8.png') }}" /></div>
+                                        </div>
+                                    </div>
+                                    {#                                    <div id="machine3Result" class="col-xs-4 machineResult">Index: 2</div>#}
+                                </div>
+
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <div id="randomizeButton">
+                                        <a href="#" class="action-button shadow animate yellow w-10">Surprise sur Prise
+                                            !</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+
+                    {% if cellPlayer.eventcategory %}
+
+                        <button type="button" class="btn btn-modal-manchot" data-toggle="modal" id="btnRandomModal"
+                                data-target="#modalLoose"
+                                data-disease="{{ cellPlayer.eventcategory.looses.0.description|upper }} !"
+                                data-picture="{{ cellPlayer.eventcategory.looses.0.picture }}"> Subis les conséquences !
+                        </button>
+                    {% endif %}
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    {#    ------------------------------ THIRD ---------------------------#}
+    {% if cellPlayer.eventcategory %}
+        <div class="modal fade modal-loose" id="modalLoose" tabindex="-1" role="dialog" aria-labelledby="modalLoose"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify modal-info border-primary border-3"
+                 role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <h5 class="modal-disease"
+                            id="exampleModalLabel">{{ cellPlayer.eventcategory.looses.0.description }}</h5>
+                        <p class="heading"></p>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="img">
+                            <img id="picLoose" class="img-fluid modal-picture modal-loose-img"
+                                 src="build/loose/{{ cellPlayer.eventcategory.looses.0.picture }}"/>
+                        </div>
+                        <p class="heading"></p>
+                        <table class="table table-responsive text-left">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Frais initiaux</th>
+                                <th scope="col">Remboursement sécu</th>
+                                <th scope="col">Remboursement TipTip</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for refund in cellPlayer.eventcategory.looses.0.refunds %}
+                                <tr>
+                                    <th scope="row">{{ refund.benefit }}</th>
+                                    <td>{{ refund.regulatedPrice }}€</td>
+                                    <td>{{ refund.refundRate }}%</td>
+                                    <td>{{ refund.refundRateTipTip }}%</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>                    <!--Footer-->
+                    <div class=" modal-footer justify-content-center">
+                        <form action="" type="post">
+                            <input type="hidden">
+                            <button type="submit" value="{{ cellPlayer.eventcategory.looses.0.id }}"
+                                    class="btn btn-outline-danger waves-effect"
+                                    name="submitLooses" id="submitLooses">Payer la note !
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('map') }}
+    <script id="codeScript2">
+        const btn = document.querySelector('#randomizeButton');
+        const results = {
+            machine1: document.querySelector('#machine1Result'),
+            machine2: document.querySelector('#machine2Result'),
+            machine3: document.querySelector('#machine3Result')
+        };
+        const el1 = document.querySelector('#machine1');
+        const el2 = document.querySelector('#machine2');
+        const el3 = document.querySelector('#machine3');
+        const machine1 = new SlotMachine(el1, {active: 0});
+        const machine2 = new SlotMachine(el2, {active: 1});
+        const machine3 = new SlotMachine(el3, {active: 2});
+
+        function onComplete(active) {
+            results[this.element.id].innerText = `Index: ${this.active}`;
+        }
+
+        btn.addEventListener('click', () => {
+            machine1.shuffle(5, onComplete);
+            setTimeout(() => machine2.shuffle(5, onComplete), 500);
+            setTimeout(() => machine3.shuffle(5, onComplete), 1000);
+        });
+    </script>
+    <script>
+        $('#myForm').on('submit', function (e) {
+            $('#myModal').modal('show');
+            e.preventDefault();
+        });
+    </script>
+{% endblock %}

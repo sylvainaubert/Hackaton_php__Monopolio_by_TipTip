@@ -1,0 +1,31 @@
+$background: #fff;
+$font-title: 'Adventure', sans-serif;
+$font-VS: 'Bebas', sans-serif;
+$font-text: 'Simplicity', sans-serif;
+$font-text2: 'Outrun', sans-serif;
+$font-text3: 'Comix', sans-serif;
+$font-white: #fff;
+$font-black: #000;
+
+$color-blue: #d12355;
+$color-red: #1eaea1;
+$color-cards: #FCC717;
+$color-ray-du-cul: #F3EE9C;
+$color-red-real-red: #ff002e;
+$color-blue-real-blue: #004BFF;
+
+$background-game: #333;
+
+$height-content: 100vh;
+$height-upper-content: 0vh;
+$height_panel-content: $height-content - $height-upper-content;
+$gameboard-content: ($height_panel-content/100) * 100;
+$width-content: 100%;
+@mixin boxshadow-right() {
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+@mixin boxshadow-down() {
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+}
+

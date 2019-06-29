@@ -1,0 +1,98 @@
+#map {
+  .card {
+
+  }
+
+  .grid {
+    padding: 3.8%;
+    margin: 70px 0 auto;
+    width: 100vw;
+    max-width: ($height_panel-content/100) * 80;
+    height: 100vw;
+    max-height: ($height_panel-content/100) * 80;
+    font-size: 1rem;
+    background: no-repeat center / contain url("../images/game/bg_backgame_ok.png");
+  }
+
+  .row {
+    display: flex;
+
+  }
+
+  .box {
+    flex: 1 0 auto;
+    position: relative;
+
+
+    &:after {
+      content: "";
+      float: left;
+      display: block;
+      padding-top: 100%;
+    }
+
+    .inner {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+    }
+
+    .innercell {
+
+      //border: 2px solid #fffaf0 !important;
+      /*      border-radius: 50% 20% / 10% 40%;*/
+      border-radius: 50%;
+      transform: perspective(1px) translateZ(0);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      //background-color: rgba(180, 175, 176, .8);
+
+
+      &:hover {
+        background-color: #0765b4;
+        border-radius: 50%;
+        border: 4px dashed #fff;
+        animation-duration: 1s;
+        color: white;
+      }
+
+
+    }
+  }
+}
+
+.dice-dice {
+  margin-top: 150px;
+
+  .dice {
+    height: 85px;
+    width: 85px;
+  }
+
+  .btn-dice {
+    background-color: $color-red-real-red;
+    color: $font-white;
+  }
+}
+
+.modal-content {
+  background-color: #363d42;
+  color: white;
+}
+
+.modal-loose-img {
+  max-height: 200px;
+}
+
+#modalLoose {
+  .table {
+    font-size: 0.8rem;
+    color: white;
+  }
+}
